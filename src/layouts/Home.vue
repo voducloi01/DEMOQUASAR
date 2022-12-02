@@ -3,29 +3,28 @@
       <Header/>
       <q-page-container>
         <q-page class="q-pa-md">
-          <p v-for="n in 15" :key="n">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil praesentium molestias a adipisci, dolore vitae odit, quidem consequatur optio voluptates asperiores pariatur eos numquam rerum delectus commodi perferendis voluptate?
-          </p>
+          <Product :DATA_PRODUCT="DATA_PRODUCT"/>
         </q-page>
       </q-page-container>
-      <Footer />
   </q-layout>
 </template>
 
 <script>
 import Header from '../components/Header/Header.vue' 
-import Footer from '../components/Footer/Footer.vue'
+import Product from '../components/Product/Product.vue'
+import {DATA_PRODUCT} from '../contants/contant.js'
 
 
 export default {
   name: 'MyLayout',
   components: {
     Header,
-    Footer 
+    Product
   },
 
   setup () {
-   
+
+    return {DATA_PRODUCT}
   }
 }
 </script>
