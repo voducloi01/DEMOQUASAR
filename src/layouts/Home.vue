@@ -3,6 +3,7 @@
       <Header/>
       <q-page-container>
         <q-page class="q-pa-md">
+          <DialogVue />
           <Product :DATA_PRODUCT="DATA_PRODUCT"/>
         </q-page>
       </q-page-container>
@@ -12,14 +13,16 @@
 <script>
 import Header from '../components/Header/Header.vue' 
 import Product from '../components/Product/Product.vue'
-import {DATA_PRODUCT} from '../contants/contant.js'
+import { DATA_PRODUCT } from '../contants/contant.js'
+import DialogVue from 'src/components/Dialog/Dialog.vue'
 
 
 export default {
   name: 'MyLayout',
   components: {
     Header,
-    Product
+    Product, 
+    DialogVue
   },
 
   setup () {

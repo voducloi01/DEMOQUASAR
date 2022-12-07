@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 
 
 export default {
@@ -29,7 +30,8 @@ export default {
   props: ['toggleLeftDrawer'], 
   setup()
   { 
-
+    const tab = ref("home");
+    return {tab}
     
   }
 };

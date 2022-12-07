@@ -8,11 +8,9 @@ const routes = [
     component: () => import('../layouts/Introduce.vue'),
   },
   {
-    path: '/cake',
-    component: () => import('../pages/Cake.vue'),
+    path: '/menu',
+    component: () => import('../layouts/Menu.vue'),
   },
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
