@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Header from '../components/Header/Header.vue' 
+import Header from '../components/Header/Header.vue'
 import DialogVue from 'src/components/Dialog/Dialog.vue'
 import SwipeVue from 'src/components/Swipe/Swipe.vue';
 

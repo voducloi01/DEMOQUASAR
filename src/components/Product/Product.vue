@@ -1,15 +1,15 @@
 <template>
-  <div class="q-pa-md doc-container">   
+  <div class="q-pa-md doc-container">
     <div class="row items-center">
       <div v-for="product of DATA_PRODUCT"  :key="product.id" class="col-6 col-md-3">
         <div class="wrrapper_detail">
                 <div class="status">{{product ? "CÒN HÀNG" : "HẾT HÀNG"}}</div>
-                <img :src="product.image"/>
+              <img :src="product.image" style="height:100% ; width:100%"/>
                 <p>{{product.name}} </p>
                 <p>Price :{{formatNumber(product.price)}} </p>
                  <q-btn color="primary" label="MUA" size="12px" />
         </div>
-    
+
     </div>
 
     </div>
@@ -21,8 +21,8 @@ export default {
     name: "DemoProduct",
     props: ['DATA_PRODUCT'] ,
   setup()
-  { 
-  
+  {
+
     const formatNumber = (number) => {
     return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
   };
@@ -45,17 +45,15 @@ export default {
     flex-direction: column
     align-items: center
     position: relative
-    img 
-        height: 50%
-        width: 63%
+
     p
-        margin: 5px   
+        margin: 5px
     .status
         position: absolute
-        height : auto 
+        height : auto
         width: auto
         background-color : red
-        bottom : 0 
+        bottom : 0
         right: 0
 </style>
 
