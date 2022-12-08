@@ -11,8 +11,8 @@
           vertical
           class="text-teal"
         >    
-          <q-tab   v-for="cakeMenu in CAKE_MENU"
-          :key="cakeMenu.id"  :name="cakeMenu.name" :icon="cakeMenu.icon" :label="cakeMenu.lable" />
+          <q-tab   v-for="cakeMenu in BANH_MEMU"
+          :key="cakeMenu.id"  :name="cakeMenu.key" :icon="cakeMenu.icon" :label="cakeMenu.name" />
         </q-tabs>
       </template>
 
@@ -28,11 +28,15 @@
           <q-tab-panel v-for="BANH_MEMU of BANH_MEMU"  :name="BANH_MEMU.key" :key="BANH_MEMU.id">
             <div class="text-h4 q-mb-md">{{BANH_MEMU.name}}</div>
             <div v-if="BANH_MEMU.key==='gioithieu'"><InformationVue /> </div>  
-            <div v-else>
+            <div v-else class="wrapper_cake">
                 <img :src="BANH_MEMU.image" alt="" class="img_cake">
-                <p class="describle text-amber-10" style="font-size:1.2rem ;">
+                <p class="describle text-amber-10 q-mt-md" style="font-size:1.2rem ;">
                     {{BANH_MEMU.describle}}
                 </p>
+                <div>
+                  <q-btn color="deep-orange"> Thêm giỏ hàng</q-btn>
+                  <input class="q-ml-md input_soluong" type="number" :min="1"/>
+                </div>
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -44,7 +48,6 @@
 
 <script>
 import { ref } from 'vue'
-import { CAKE_MENU } from '../../contants/contant'
 import InformationVue from '../Information/Information.vue';
 import { BANH_MEMU } from '../../contants/contant'
 
@@ -60,16 +63,26 @@ export default {
     return {
       tab,
         splitterModel: ref(20),
-        CAKE_MENU,
         BANH_MEMU,
     }
   }
 }
 </script>
 <style lang="scss">
+
+.wrapper_cake{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 .img_cake {
     height: 50%;
     width: 50%;
+}
+.input_soluong{
+  width: 20%;
+  border-radius: 10px ;
+}
 }
 
 </style>

@@ -12,6 +12,10 @@ const routes = [
     component: () => import('../layouts/Menu.vue'),
   },
   {
+    path: '/sanpham',
+    component: () => import('../layouts/SanPham.vue'),
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
