@@ -12,15 +12,17 @@
         <q-route-tab to="/lienhe" name="lienhe" icon="call" label="Liên Hệ" class="text-white"/>
       </q-tabs>
       <q-space />
+       <q-icon name="shopping_cart" size="35px"/>
          <q-avatar >
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQap7CQd2HfIzDR7yh9eecI_A62siDNpKugJw&usqp=CAU">
           </q-avatar>
-       <h5 class="q-px-md"> TIỆM BÁNH SÀI GÒN  ! <q-icon name="notifications" /></h5>
+       <h5 class="q-px-md"> TIỆM BÁNH SÀI GÒN  ! </h5>
         </q-toolbar>     
       </q-header>
 </template>
 
 <script>
+import { ref } from 'vue';
 
 
 export default {
@@ -28,7 +30,8 @@ export default {
   props: ['toggleLeftDrawer'], 
   setup()
   { 
-
+    const tab = ref("home");
+    return {tab}
     
   }
 };
