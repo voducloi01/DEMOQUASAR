@@ -1,50 +1,44 @@
 <template>
-  <div class="row justify-center">
-    <q-card
-      v-touch-repeat.mouse="handleRepeat"
-      class="custom-area cursor-pointer bg-blue-grey-1 text-white shadow-2 relative-position row flex-center"
+
+    <q-carousel
+      animated
+      v-model="slide"
+      navigation
+      infinite
+      :autoplay="1500"
+      arrows
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      @mouseenter="autoplay = false"
+      @mouseleave="autoplay = true"
     >
-      <div v-if="info" class="custom-info">
-        <img :src="info" alt="">
-      </div>
-      <div v-else class="text-center">
-        Click/touch and hold.
-      </div>
-    </q-card>
-  </div>
+      <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
+      <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
+      <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
+      <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
+    </q-carousel>
+
 </template>
 
 <script>
-import { ref ,reactive } from 'vue'
+import { ref } from 'vue'
 
 export default {
-  name : "demoSwiper" ,
+  name : "DemoSwiper",
   setup () {
-    const info = ref("https://cdn.tgdd.vn/2021/07/CookProduct/BeFunky-collage(3)-1200x676-1.jpg")
-    const info1 = reactive([{
-      id: 1,
-      text : "abb"
-    }])
-    const handleRepeat = () =>
-    {       
-      info.value =array
-    }   
     return {
-      info,
-      handleRepeat
-    
+      slide: ref(1),
+      autoplay: ref(true)
     }
   }
 }
 </script>
+<style lang="scss">
+.q-carousel {
+    height: 100%;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+}
 
-<style lang="sass" scoped>
-.custom-area
-  width: 100%
-  border-radius: 3px
-  padding: 8px
-
-.custom-info pre
-  width: 190px
-  font-size: 12px
 </style>

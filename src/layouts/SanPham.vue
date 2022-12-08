@@ -4,16 +4,16 @@
       <q-page-container>
         <q-page class="q-pa-md">
           <DialogVue />
-          <Product :DATA_PRODUCT="DATA_PRODUCT"/>
+          <Product :DATA_PRODUCT="BANH_MEMU"/>
         </q-page>
       </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import Header from '../components/Header/Header.vue' 
+import Header from '../components/Header/Header.vue'
 import Product from '../components/Product/Product.vue'
-import { DATA_PRODUCT } from '../contants/contant.js'
+import {BANH_MEMU} from '../contants/contant.js'
 import DialogVue from 'src/components/Dialog/Dialog.vue'
 
 
@@ -21,13 +21,13 @@ export default {
   name: 'MyLayout1',
   components: {
     Header,
-    Product, 
+    Product,
     DialogVue
   },
 
   setup () {
 
-    return {DATA_PRODUCT}
+    return {BANH_MEMU}
   }
 }
 </script>
