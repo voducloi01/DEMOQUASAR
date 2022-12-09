@@ -3,7 +3,7 @@
       <Header/>
       <q-page-container>
         <q-page >
-          <!-- <DialogVue /> -->
+          <div class="wrapper_slogan"><SloganVue/></div>
           <SwipeVue />
         </q-page>
       </q-page-container>
@@ -12,16 +12,16 @@
 
 <script>
 import Header from '../components/Header/Header.vue'
-import DialogVue from 'src/components/Dialog/Dialog.vue'
 import SwipeVue from 'src/components/Swipe/Swipe.vue';
+import SloganVue from 'src/components/Slogan/Slogan.vue';
 
 
 export default {
   name: 'MyLayout',
   components: {
     Header,
-    // DialogVue,
-    SwipeVue
+    SwipeVue,
+    SloganVue
   },
 
   setup () {
@@ -29,4 +29,13 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.wrapper_slogan{
+  position: absolute;
+  z-index: 1000;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+}
+</style>
 

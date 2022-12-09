@@ -10,10 +10,13 @@
           v-model="tab"
           vertical
           class="text-teal"
-        >    
+        >  
+        <q-tab  name="gioithieu" icon="info" label="Giới Thiệu !" />  
+      
           <q-tab   v-for="cakeMenu in BANH_MEMU"
           :key="cakeMenu.id"  :name="cakeMenu.key" :icon="cakeMenu.icon" :label="cakeMenu.name" />
         </q-tabs>
+        
       </template>
 
       <template v-slot:after>
@@ -25,10 +28,13 @@
           transition-prev="jump-up"
           transition-next="jump-up"
         >
+        <q-tab-panel   name="gioithieu" >
+          <div class="text-h4 q-mb-md">Giới Thiệu </div>
+         <InformationVue />
+        </q-tab-panel>
           <q-tab-panel v-for="BANH_MEMU of BANH_MEMU"  :name="BANH_MEMU.key" :key="BANH_MEMU.id">
             <div class="text-h4 q-mb-md">{{BANH_MEMU.name}}</div>
-            <div v-if="BANH_MEMU.key==='gioithieu'"><InformationVue /> </div>  
-            <div v-else class="wrapper_cake">
+            <div  class="wrapper_cake">
                 <img :src="BANH_MEMU.image" alt="" class="img_cake">
                 <p class="describle text-amber-10 q-mt-md" style="font-size:1.2rem ;">
                     {{BANH_MEMU.describle}}

@@ -12,10 +12,10 @@
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
     >
-      <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
-      <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-      <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-      <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
+      <q-carousel-slide :name="1" img-src="https://netamthuc.vn/wp-content/uploads/2021/04/Banh-bao-sau-khi-duoc-hap-chin.jpg" />
+      <q-carousel-slide :name="2" img-src="https://i.ytimg.com/vi/ECcjnKmFdEY/maxresdefault.jpg" />
+      <q-carousel-slide :name="3" img-src="https://i.ytimg.com/vi/u9hHhR0vj4I/maxresdefault.jpg" />
+      <q-carousel-slide :name="4" img-src="http://img.websosanh.vn/v2/users/review/images/9-cong-thuc-lam-banh-kem-khong/3np0ll0juu5km.jpg" />
     </q-carousel>
 
 </template>

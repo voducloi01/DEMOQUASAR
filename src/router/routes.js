@@ -16,6 +16,11 @@ const routes = [
     component: () => import('../layouts/SanPham.vue'),
   },
   {
+    path: '/contact',
+    component: () => import('../layouts/Contact.vue'),
+  },
+
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },
