@@ -1,7 +1,7 @@
 <template>
      <q-footer reveal elevated>
         <q-toolbar>
-          <q-toolbar-title>Footer</q-toolbar-title>
+          <q-toolbar-title>Mở cửa từ Thứ 2 đến Chủ Nhật 8.am -> 10.pm</q-toolbar-title>
         </q-toolbar>
       </q-footer>
 </template>

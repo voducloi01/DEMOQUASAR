@@ -9,7 +9,7 @@
         <q-route-tab to="/menu" name="menu" icon="menu" label="Menu" class="text-white"/>
         <q-route-tab to="/sanpham" name="sanpham" icon="visibility" label="Sản Phẩm" class="text-white"/>
         <q-route-tab to="/gioithieu" name="gioithieu" icon="info" label="Giới Thiệu" class="text-white"/>
-        <q-route-tab to="/lienhe" name="lienhe" icon="call" label="Liên Hệ" class="text-white"/>
+        <q-route-tab to="/contact" name="lienhe" icon="call" label="Liên Hệ" class="text-white"/>
       </q-tabs>
       <q-space />
        <q-icon name="shopping_cart" size="35px"/>

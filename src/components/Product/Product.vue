@@ -1,18 +1,22 @@
 <template>
-  <div class="q-pa-md doc-container">
-    <div class="row items-center">
-      <div v-for="product of DATA_PRODUCT"  :key="product.id" class="col-6 col-md-3">
-        <div class="wrrapper_detail">
-                <div class="status">{{product ? "CÒN HÀNG" : "HẾT HÀNG"}}</div>
-              <img :src="product.image" style="height:100% ; width:100%"/>
-                <p>{{product.name}} </p>
-                <p>Price :{{formatNumber(product.price)}} </p>
-                 <q-btn color="primary" label="MUA" size="12px" />
-        </div>
-
+  <div class="q-pa-md">
+    <div class="row">
+      <div v-for="DATA_PRODUCT of DATA_PRODUCT" :key="DATA_PRODUCT.id" class="col-12 col-md-3 item_product"> 
+      <div class="wrapper_img">
+          <img class="item_img" :src="DATA_PRODUCT.image"/>
+      </div> 
+      <div class="wrapper_content">
+           <p style="margin-bottom : 0" class="text-red">Tên Sản Phẩm :{{DATA_PRODUCT.name}} </p>
+           <p style="margin-bottom : 0" class="text-red">Gía Tiền :{{DATA_PRODUCT.price}} </p>
+           <q-btn style="background: #FF0080; color: white" label="Thêm Giỏ Hàng" />    
+      </div>
+      <!-- <div style="margin-top : 15px">
+        <q-badge color="red" rounded class="q-mr-sm" />
+        {{DATA_PRODUCT.status  ? 'Còn Hàng' : 'Hết Hàng'}}
+      </div> -->
     </div>
+  </div>
 
-    </div>
   </div>
 </template>
 
@@ -32,29 +36,30 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.row
 .row > div
   padding: 10px 15px
   background: rgba(86,61,124,.15)
   border: 1px solid rgba(86,61,124,.2)
-.doc-container > div + div
+.row + .row
   margin-top: 1rem
 
-.wrrapper_detail
-    display: flex
-    flex-direction: column
-    align-items: center
-    position: relative
 
-    p
-        margin: 5px
-    .status
-        position: absolute
-        height : auto
-        width: auto
-        background-color : red
-        bottom : 0
-        right: 0
+.item_product 
+      overflow: hidden
+      margin: 5px 10px
+      width: calc(100%/4 - 20px)
+
+.wrapper_img
+   height: 70%
+ 
+.item_img
+            height: 100%
+            width: 100%
+.wrapper_content
+    text-align : center   
+    p 
+     font-size : 1.1rem  
+            
 </style>
 
 
