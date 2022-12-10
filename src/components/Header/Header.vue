@@ -1,6 +1,6 @@
 <template >
-      <q-header reveal elevated>
-        <q-toolbar>      
+      <q-header class="bg-pink-2"  elevated>
+        <q-toolbar>
        <q-tabs
         v-model="tab"
         class="text-teal"
@@ -17,7 +17,7 @@
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQap7CQd2HfIzDR7yh9eecI_A62siDNpKugJw&usqp=CAU">
           </q-avatar>
        <h5 class="q-px-md"> TIỆM BÁNH SÀI GÒN  ! </h5>
-        </q-toolbar>     
+        </q-toolbar>
       </q-header>
 </template>
 
@@ -27,12 +27,12 @@ import { ref } from 'vue';
 
 export default {
   name: 'QuasarHeader',
-  props: ['toggleLeftDrawer'], 
+  props: ['toggleLeftDrawer'],
   setup()
-  { 
+  {
     const tab = ref("home");
     return {tab}
-    
+
   }
 };
 </script>

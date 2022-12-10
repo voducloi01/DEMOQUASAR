@@ -1,14 +1,15 @@
 <template>
   <div class="q-pa-md">
     <div class="row">
-      <div v-for="DATA_PRODUCT of DATA_PRODUCT" :key="DATA_PRODUCT.id" class="col-12 col-md-3 item_product"> 
-      <div class="wrapper_img">
-          <img class="item_img" :src="DATA_PRODUCT.image"/>
-      </div> 
+      <div v-for="DATA_PRODUCT of DATA_PRODUCT" :key="DATA_PRODUCT.id" class="col-12 col-md-3 item_product">
+
       <div class="wrapper_content">
+        <div class="wrapper_img">
+          <img class="item_img" :src="DATA_PRODUCT.image"/>
+      </div>
            <p style="margin-bottom : 0" class="text-red">Tên Sản Phẩm :{{DATA_PRODUCT.name}} </p>
            <p style="margin-bottom : 0" class="text-red">Gía Tiền :{{DATA_PRODUCT.price}} </p>
-           <q-btn style="background: #FF0080; color: white" label="Thêm Giỏ Hàng" />    
+           <q-btn style="background: #FF0080; color: white" label="Thêm Giỏ Hàng" />
       </div>
       <!-- <div style="margin-top : 15px">
         <q-badge color="red" rounded class="q-mr-sm" />
@@ -44,22 +45,22 @@ export default {
   margin-top: 1rem
 
 
-.item_product 
+.item_product
       overflow: hidden
-      margin: 5px 10px
+      margin: 10px 10px
       width: calc(100%/4 - 20px)
 
 .wrapper_img
-   height: 70%
- 
+   height: 50vh
+
 .item_img
             height: 100%
             width: 100%
 .wrapper_content
-    text-align : center   
-    p 
-     font-size : 1.1rem  
-            
+    text-align : center
+    p
+     font-size : 1.1rem
+
 </style>
 
 

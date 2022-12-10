@@ -1,5 +1,5 @@
 <template>
-     <q-footer reveal elevated>
+     <q-footer class="bg-pink-2" >
         <q-toolbar>
           <q-toolbar-title>Mở cửa từ Thứ 2 đến Chủ Nhật 8.am -> 10.pm</q-toolbar-title>
         </q-toolbar>
@@ -12,16 +12,16 @@ export default {
 
     data() {
         return {
-            
+
         };
     },
 
     mounted() {
-        
+
     },
 
     methods: {
-        
+
     },
 };
 </script>

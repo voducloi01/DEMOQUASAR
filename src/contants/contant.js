@@ -1,7 +1,6 @@
 export const BANH_MEMU = [
   {
     id: 1,
-    key: 'banhsu',
     name: 'Bánh Su Kem',
     icon: 'cake',
     image: 'https://i.ytimg.com/vi/qa0eK9CdvUE/maxresdefault.jpg',
@@ -12,7 +11,6 @@ export const BANH_MEMU = [
   },
   {
     id: 2,
-    key: 'banhtrungcuoc',
     name: 'Bánh Trứng Cuốc',
     icon: 'cake',
     image:
@@ -24,7 +22,6 @@ export const BANH_MEMU = [
   },
   {
     id: 3,
-    key: 'banhduanuong',
     name: 'Bánh Dừa Nướng',
     icon: 'cake',
     image:
@@ -36,7 +33,6 @@ export const BANH_MEMU = [
   },
   {
     id: 4,
-    key: 'banhxucxich',
     name: 'Bánh Xúc Xích',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJyvJr9NRa7fhNIdULqLzWF9zN5hRnS2T5Jw&usqp=CAU',
@@ -48,7 +44,6 @@ export const BANH_MEMU = [
   },
   {
     id: 5,
-    key: 'banhsonuong',
     name: 'Bánh Sò Nướng',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKdhklpvpWZ1CEKFMWcmeRaEZWAzoNrd15yQ&usqp=CAU',
@@ -60,7 +55,6 @@ export const BANH_MEMU = [
   },
   {
     id: 6,
-    key: 'banhsohap',
     name: 'Bánh Sò Hấp',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJyvJr9NRa7fhNIdULqLzWF9zN5hRnS2T5Jw&usqp=CAU',
@@ -72,7 +66,6 @@ export const BANH_MEMU = [
   },
   {
     id: 7,
-    key: 'banhxamduanhandua',
     name: 'Bánh Dứa Nhân Dừa',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLuQBgMUn96dts8VlTZNLO6-rxVSYXKhF5Ag&usqp=CAU',
@@ -84,7 +77,6 @@ export const BANH_MEMU = [
   },
   {
     id: 8,
-    key: 'banhxamduanhandauxanh',
     name: 'Bánh Dứa Đậu Xanh',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhI0eRKSQf24_qj0D6FLUxQI_pq487PMr2LQ&usqp=CAU',
@@ -96,7 +88,6 @@ export const BANH_MEMU = [
   },
   {
     id: 9,
-    key: 'banhxamduanhandauxanh',
     name: 'Bánh Dứa Đậu Xanh',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhI0eRKSQf24_qj0D6FLUxQI_pq487PMr2LQ&usqp=CAU',

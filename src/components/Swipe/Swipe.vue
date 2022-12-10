@@ -26,6 +26,7 @@ import { ref } from 'vue'
 export default {
   name : "DemoSwiper",
   setup () {
+
     return {
       slide: ref(1),
       autoplay: ref(true)

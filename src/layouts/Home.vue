@@ -1,7 +1,8 @@
 <template>
   <q-layout view="hHh lpR fFf" class="bg-grey-1">
-      <Header/>
+    <Header/>
       <q-page-container>
+
         <q-page >
           <div class="wrapper_slogan"><SloganVue/></div>
           <SwipeVue />

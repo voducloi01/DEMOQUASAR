@@ -19,6 +19,10 @@ const routes = [
     path: '/contact',
     component: () => import('../layouts/Contact.vue'),
   },
+  {
+    path: '/admin',
+    component: () => import('../Admin/layouts/Home.vue'),
+  },
 
   {
     path: '/:catchAll(.*)*',
