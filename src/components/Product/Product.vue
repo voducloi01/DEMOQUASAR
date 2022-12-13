@@ -1,20 +1,13 @@
 <template>
   <div class="q-pa-md">
     <div class="row">
-      <div v-for="DATA_PRODUCT of DATA_PRODUCT" :key="DATA_PRODUCT.id" class="col-12 col-md-3 item_product">
+      <div v-for="DATA_PRODUCT of data" :key="DATA_PRODUCT.id" class="col-12 col-md-3 item_product">
 
-      <div class="wrapper_content">
-        <div class="wrapper_img">
           <img class="item_img" :src="DATA_PRODUCT.image"/>
-      </div>
            <p style="margin-bottom : 0" class="text-red">Tên Sản Phẩm :{{DATA_PRODUCT.name}} </p>
            <p style="margin-bottom : 0" class="text-red">Gía Tiền :{{DATA_PRODUCT.price}} </p>
            <q-btn style="background: #FF0080; color: white" label="Thêm Giỏ Hàng" />
-      </div>
-      <!-- <div style="margin-top : 15px">
-        <q-badge color="red" rounded class="q-mr-sm" />
-        {{DATA_PRODUCT.status  ? 'Còn Hàng' : 'Hết Hàng'}}
-      </div> -->
+          <p class="status">{{DATA_PRODUCT.status  ? 'Còn Hàng' : 'Hết Hàng'}} </p>
     </div>
   </div>
 
@@ -22,16 +15,40 @@
 </template>
 
 <script>
+import {useData} from '../../stores/data'
+import { ref } from 'vue'
+import { api } from '../../boot/axios'
+import { useQuasar } from 'quasar'
 export default {
     name: "DemoProduct",
     props: ['DATA_PRODUCT'] ,
   setup()
   {
+    const store = useData();
 
+    console.log(store);
+  const $q = useQuasar()
+  const data = ref('')
+
+  function loadData () {
+    api.get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
+      .then((response) => {
+        data.value = response.data;
+      })
+      .catch(() => {
+        $q.notify({
+          color: 'negative',
+          position: 'top',
+          message: 'Loading failed',
+          icon: 'report_problem'
+        })
+      })
+  }
+  loadData() ;
     const formatNumber = (number) => {
     return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
   };
-      return {formatNumber}
+      return {formatNumber ,data}
     }
 }
 </script>
@@ -46,15 +63,27 @@ export default {
 
 
 .item_product
+      display: flex
+      flex-direction: column
+      align-items: center
       overflow: hidden
       margin: 10px 10px
       width: calc(100%/4 - 20px)
+      height : 100%
+      position: relative
 
+.status
+    position: absolute
+    top: 0
+    left: 0
+    width: auto
+    height: auto
+    background: red
 .wrapper_img
    height: 50vh
 
 .item_img
-            height: 100%
+            height: 20vh
             width: 100%
 .wrapper_content
     text-align : center

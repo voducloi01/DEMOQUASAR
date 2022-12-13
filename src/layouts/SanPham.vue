@@ -33,18 +33,7 @@ export default {
   setup () {
     const check = ref(false)
 
-   window.addEventListener('scroll', (e) => {
-    if(e.timeStamp <= 0) {
-      console.log(check.value);
-      return check.value;
 
-    }else {
-      console.log(check.value);
-      return check.value = true;
-    }
-
-
- })
 
     return {BANH_MEMU , check}
   }
