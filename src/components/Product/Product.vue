@@ -5,7 +5,7 @@
 
           <img class="item_img" :src="DATA_PRODUCT.image"/>
            <p style="margin-bottom : 0" class="text-red">Tên Sản Phẩm :{{DATA_PRODUCT.name}} </p>
-           <p style="margin-bottom : 0" class="text-red">Gía Tiền :{{DATA_PRODUCT.price}} </p>
+           <p style="margin-bottom : 0" class="text-red">Gía Tiền :{{formatNumber(DATA_PRODUCT.price)}} </p>
            <q-btn style="background: #FF0080; color: white" label="Thêm Giỏ Hàng" />
           <p class="status">{{DATA_PRODUCT.status  ? 'Còn Hàng' : 'Hết Hàng'}} </p>
     </div>
@@ -15,25 +15,23 @@
 </template>
 
 <script>
-import {useData} from '../../stores/data'
 import { ref } from 'vue'
 import { api } from '../../boot/axios'
 import { useQuasar } from 'quasar'
+
 export default {
     name: "DemoProduct",
     props: ['DATA_PRODUCT'] ,
   setup()
   {
-    const store = useData();
-
-    console.log(store);
-  const $q = useQuasar()
-  const data = ref('')
-
-  function loadData () {
+    const $q = useQuasar()
+    const data = ref('')
+    function loadData()
+    {
     api.get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
-      .then((response) => {
-        data.value = response.data;
+      .then((response) =>
+      {
+        data.value = response.data;  
       })
       .catch(() => {
         $q.notify({
