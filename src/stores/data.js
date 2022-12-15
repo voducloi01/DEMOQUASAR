@@ -5,13 +5,14 @@ import { useQuasar } from 'quasar';
 
 export const useData = defineStore('useData', () => {
   const $q = useQuasar();
-  const data = ref();
+  const data = ref([]);
 
   function loadData() {
+    $q.loading.show();
     api
       .get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
       .then((response) => {
-        console.log((data.value = response.data));
+        data.value = response.data;
       })
       .catch(() => {
         $q.notify({
@@ -20,11 +21,11 @@ export const useData = defineStore('useData', () => {
           message: 'Loading failed',
           icon: 'report_problem',
         });
-      });
+      })
+      .finally(() => $q.loading.hide());
   }
   onMounted(() => {
     loadData();
-    console.log(123);
   });
 
   return { data };

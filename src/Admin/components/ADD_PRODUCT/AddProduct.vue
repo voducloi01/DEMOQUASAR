@@ -64,9 +64,6 @@ export default {
       describle : '',
       soluong : 0  
     })
- 
-
-
 
     return {
       product   

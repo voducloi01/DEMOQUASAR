@@ -104,6 +104,7 @@ export default {
    
     const addProduct = (product) =>
     {
+      $q.loading.show();
         api.post('https://636caa44ab4814f2b26a713e.mockapi.io/product', product)
               .then(function (response)
                   {
@@ -119,7 +120,11 @@ export default {
               })
               .catch(function (error) {
                 console.log(error);
-              });
+              })
+              .finally(() =>
+      {
+            $q.loading.hide()
+      })
     }
 
     return {

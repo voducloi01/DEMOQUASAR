@@ -15,38 +15,20 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { api } from '../../boot/axios'
-import { useQuasar } from 'quasar'
+import { ref ,onMounted } from 'vue'
+import { useData } from '../../stores/data'
 
 export default {
     name: "DemoProduct",
     props: ['DATA_PRODUCT'] ,
   setup()
-  {
-    const $q = useQuasar()
-    const data = ref('')
-    function loadData()
-    {
-    api.get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
-      .then((response) =>
-      {
-        data.value = response.data;  
-      })
-      .catch(() => {
-        $q.notify({
-          color: 'negative',
-          position: 'top',
-          message: 'Loading failed',
-          icon: 'report_problem'
-        })
-      })
-  }
-  loadData() ;
+  { 
+    const store = useData();
+    const data = store.data; 
     const formatNumber = (number) => {
     return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
   };
-      return {formatNumber ,data}
+      return {formatNumber,data}
     }
 }
 </script>
