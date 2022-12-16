@@ -1,36 +1,70 @@
 <template>
   <div class="q-pa-md">
     <div class="row">
-      <div v-for="DATA_PRODUCT of data" :key="DATA_PRODUCT.id" class="col-12 col-md-3 item_product">
-
-          <img class="item_img" :src="DATA_PRODUCT.image"/>
-           <p style="margin-bottom : 0" class="text-red">Tên Sản Phẩm :{{DATA_PRODUCT.name}} </p>
-           <p style="margin-bottom : 0" class="text-red">Gía Tiền :{{formatNumber(DATA_PRODUCT.price)}} </p>
-           <q-btn style="background: #FF0080; color: white" label="Thêm Giỏ Hàng" />
-          <p class="status">{{DATA_PRODUCT.status  ? 'Còn Hàng' : 'Hết Hàng'}} </p>
+      <div
+        v-for="DATA_PRODUCT of data"
+        :key="DATA_PRODUCT.id"
+        class="col-12 col-md-3 item_product"
+      >
+        <img class="item_img" :src="DATA_PRODUCT.image" />
+        <p style="margin-bottom: 0" class="text-red">
+          Tên Sản Phẩm :{{ DATA_PRODUCT.name }}
+        </p>
+        <p style="margin-bottom: 0" class="text-red">
+          Gía Tiền :{{ formatNumber(DATA_PRODUCT.price) }}
+        </p>
+        <q-btn
+          style="background: #ff0080; color: white"
+          label="Thêm Giỏ Hàng"
+        />
+        <p class="status">
+          {{ DATA_PRODUCT.status ? 'Còn Hàng' : 'Hết Hàng' }}
+        </p>
+      </div>
     </div>
-  </div>
-
   </div>
 </template>
 
 <script>
-import { ref ,onMounted } from 'vue'
-import { useData } from '../../stores/data'
-
+import { onMounted, ref } from 'vue';
+import { api } from '../../boot/axios';
+import { useQuasar } from 'quasar';
+import { useData } from '../../stores/data';
 export default {
-    name: "DemoProduct",
-    props: ['DATA_PRODUCT'] ,
-  setup()
-  { 
+  name: 'DemoProduct',
+  props: ['DATA_PRODUCT'],
+  setup() {
     const store = useData();
-    const data = store.data; 
-    const formatNumber = (number) => {
-    return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
-  };
-      return {formatNumber,data}
+    const $q = useQuasar();
+    async function loadData() {
+      $q.loading.show();
+      await api
+        .get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
+        .then((response) => {
+          store.setData(response.data);
+          store.getData();
+        })
+        .catch(() => {
+          $q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Loading failed',
+            icon: 'report_problem',
+          });
+        })
+        .finally(() => $q.loading.hide());
     }
-}
+    loadData();
+    
+    const data = ref(store.getData());
+
+    const formatNumber = (number) => {
+      return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
+    };
+
+    return { formatNumber, data };
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -69,7 +103,4 @@ export default {
     text-align : center
     p
      font-size : 1.1rem
-
 </style>
-
-
