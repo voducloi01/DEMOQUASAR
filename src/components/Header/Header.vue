@@ -10,9 +10,16 @@
         <q-route-tab to="/sanpham" name="sanpham" icon="visibility" label="Sản Phẩm" class="text-white"/>
         <q-route-tab to="/gioithieu" name="gioithieu" icon="info" label="Giới Thiệu" class="text-white"/>
         <q-route-tab to="/contact" name="lienhe" icon="call" label="Liên Hệ" class="text-white"/>
+        <q-route-tab to="cart">
+            <q-btn dense color="purple" round icon="shopping_cart" class="q-mr-md">
+                <q-badge color="red" floating>4</q-badge>
+          </q-btn>
+          </q-route-tab>
       </q-tabs>
       <q-space />
-       <q-icon name="shopping_cart" size="35px"/>
+
+
+
          <q-avatar >
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQap7CQd2HfIzDR7yh9eecI_A62siDNpKugJw&usqp=CAU">
           </q-avatar>

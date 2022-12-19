@@ -23,6 +23,10 @@ const routes = [
     path: '/admin',
     component: () => import('../Admin/layouts/Home.vue'),
   },
+  {
+    path: '/cart',
+    component: () => import('../layouts/Cart.vue'),
+  },
 
   {
     path: '/:catchAll(.*)*',

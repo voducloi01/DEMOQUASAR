@@ -26,10 +26,9 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import {  ref } from 'vue';
 import { api } from '../../boot/axios';
 import { useQuasar } from 'quasar';
-import { useData } from '../../stores/data';
 export default {
   name: 'DemoProduct',
   props: ['DATA_PRODUCT'],
@@ -54,7 +53,7 @@ export default {
         .finally(() => $q.loading.hide());
     }
     loadData();
-    
+
 
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';

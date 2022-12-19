@@ -1,13 +1,12 @@
 <template>
-<div class="table-users">
-   <div class="header">Sản Phẩm</div>
+   <div class="table-users">
+   <div class="header">CART</div>
 
    <table cellspacing="0">
       <tr>
          <th>Picture</th>
          <th>Name </th>
          <th>Price</th>
-         <th>Describle</th>
          <th>Amount</th>
          <th>Manager</th>
       </tr>
@@ -16,28 +15,49 @@
          <td><img :src="data.image" alt="" /></td>
          <td>{{data.name}}</td>
          <td>{{data.price}}</td>
-         <td>{{data.describle}}</td>
-         <td>{{data.soluong}}</td>
-         <td style="display: flex">
-            <q-btn @click="$emit('updateId' , data)"> Update</q-btn>
-            <q-btn @click="$emit('Delete' , data)"> Delete</q-btn>
+         <td>{{data.amout}}</td>
+         <td style="text-align: center;">
+            <q-btn> Delete</q-btn>
          </td>
       </tr>
    </table>
 </div>
+
 </template>
 
 <script>
-
+import {ref,onMounted} from 'vue'
+import { api } from '../../boot/axios';
+import { useQuasar } from 'quasar';
 export default {
-    name : "tableProduct" ,
-   props: ['data'],
-    emits : ['updateId','Delete'] ,
-    setup()
-    {
+  name : "demoComponentCart",
+  setup () {
+    const $q = useQuasar();
+    const data = ref();
+    console.log(data.value);
 
+      function loadData () {
+      $q.loading.show();
+       api
+        .get('https://636caa44ab4814f2b26a713e.mockapi.io/cart')
+        .then((response) => {
+             data.value = response.data
+        })
+        .catch(() => {
+          $q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Loading failed',
+            icon: 'report_problem',
+          });
+        })
+        .finally(() => $q.loading.hide());
     }
-    }
+    onMounted(() => loadData())
+      return {data}
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>
