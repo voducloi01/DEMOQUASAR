@@ -18,7 +18,7 @@
                           vertical
                           class="text-teal"
                         >
-                          <q-tab name="mails" icon="add" label="Thêm Sản Phẩm" />
+                          <q-tab name="add" icon="add" label="Thêm Sản Phẩm" />
 
                     </q-tabs>
                   </template>
@@ -32,8 +32,8 @@
                       transition-prev="jump-up"
                       transition-next="jump-up"
                     >
-                      <q-tab-panel name="mails">
-                          <div class="wrapp"> <AddProduct @addProduct="addProduct"/></div>
+                      <q-tab-panel name="add">
+                          <div class="wrapp"> <AddProduct @addProduct="addProduct" @UpdateProduct="UpdateProduct" /></div>
                       </q-tab-panel>
                     </q-tab-panels>
                   </template>
@@ -42,7 +42,7 @@
            </div>
 
             </div>
-         <div class="col-12 col-md-7"><TableProductVue :data='data' /></div>
+         <div class="col-12 col-md-7"><TableProductVue :data='data' @updateId="updateId" @Delete="Delete"/></div>
           </div>
        
         </q-page>
@@ -58,6 +58,7 @@ import TableProductVue from '../components/TableProduct/TableProduct.vue';
 import { api } from '../../boot/axios'
 import { useQuasar } from 'quasar'
 import { Notify } from 'quasar'
+import {useData} from '../stores/data'
 
 
 
@@ -71,10 +72,13 @@ export default {
   } ,
   setup()
   {
-     const $q = useQuasar()
+    const $q = useQuasar()
     const data = ref('')
+    const store = useData();
+    const product = store.product;
     function loadData()
     {
+      $q.loading.show();
     api.get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
       .then((response) =>
       {
@@ -87,34 +91,35 @@ export default {
           message: 'Loading failed',
           icon: 'report_problem'
         })
+        
       })
+      .finally(() => $q.loading.hide())
   }
     loadData();
-      const Notifi = () =>
+      const Notifi = (message) =>
     {
           Notify.create({
             type: 'positive',
             color: 'positive',
             timeout: 2000,
             position: 'center',
-            message: 'Thêm Thành Công !'
+            message: message
           })
     }
-     
-   
+  
     const addProduct = (product) =>
     {
-      $q.loading.show();
+      if (store.product.name == "" && store.product.image == ""&& store.product.describle == "") {
+        const message = "vui lòng thêm đầy đủ thông tin !";
+        Notifi(message)
+      } else {
+        $q.loading.show();
         api.post('https://636caa44ab4814f2b26a713e.mockapi.io/product', product)
               .then(function (response)
-                  {
-                Notifi();
-                product.name = ""; 
-                product.image = "";
-                product.price = 0; 
-                product.describle = ""; 
-                product.soluong = 0;    
-                console.log(response);
+              {
+                const message = "Thêm Thành Công !"
+                Notifi(message);
+                store.resetProduct();
                 loadData();
               
               })
@@ -125,13 +130,78 @@ export default {
       {
             $q.loading.hide()
       })
+      }
     }
 
+    const updateId = (data) =>
+    { 
+      product.id = data.id;
+      product.name = data.name;
+      product.image = data.image;
+      product.price = data.price; 
+      product.describle = data.describle; 
+      product.soluong = data.soluong;
+
+    }
+    const UpdateProduct = (product) =>
+    {
+      if (product.id === "") {
+        const message = "Vui Lòng Chọn Sản Phẩm Cần Chỉnh Sửa !"
+        Notifi(message); 
+      } else {
+        $q.loading.show();
+        api.put(`https://636caa44ab4814f2b26a713e.mockapi.io/product/${product.id}`,product)
+              .then(function (response)
+              {
+                const message = "Cập Nhập Thành Công !"
+                Notifi(message);  
+                store.resetProduct();
+                loadData(); 
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+              .finally(() =>
+      {
+            $q.loading.hide()
+      })
+     }
+    }
+
+    const Delete = (product) =>
+    {
+       if (product.id === "") {
+        const message = "Vui Lòng Chọn Sản Phẩm Cần Xóa !"
+        Notifi(message); 
+      } else {
+        $q.loading.show();
+        api.delete(`https://636caa44ab4814f2b26a713e.mockapi.io/product/${product.id}`)
+              .then(function (response)
+              {
+                const message = "Xóa Thành Công !"
+                Notifi(message);  
+                store.resetProduct();
+                loadData(); 
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+              .finally(() =>
+      {
+            $q.loading.hide()
+      })
+     }
+    }
+   
+
     return {
+      Delete,
+      updateId,
+      UpdateProduct,
       addProduct,
       data , 
-      tab: ref('mails'),
-      splitterModel: ref(20)
+      tab: ref('add'),
+      splitterModel: ref(20),
     }
   }
 }

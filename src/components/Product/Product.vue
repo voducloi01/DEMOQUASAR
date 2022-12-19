@@ -34,15 +34,14 @@ export default {
   name: 'DemoProduct',
   props: ['DATA_PRODUCT'],
   setup() {
-    const store = useData();
     const $q = useQuasar();
-    async function loadData() {
+    const data = ref();
+     function loadData() {
       $q.loading.show();
-      await api
+       api
         .get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
         .then((response) => {
-          store.setData(response.data);
-          store.getData();
+            data.value = response.data
         })
         .catch(() => {
           $q.notify({
@@ -56,7 +55,6 @@ export default {
     }
     loadData();
     
-    const data = ref(store.getData());
 
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';

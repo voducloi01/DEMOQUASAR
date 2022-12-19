@@ -19,8 +19,8 @@
          <td>{{data.describle}}</td>
          <td>{{data.soluong}}</td>
          <td style="display: flex"> 
-            <q-btn> Update</q-btn>
-            <q-btn> Delete</q-btn>
+            <q-btn @click="$emit('updateId' , data)"> Update</q-btn>
+            <q-btn @click="$emit('Delete' , data)"> Delete</q-btn>
          </td>
       </tr>
    </table>
@@ -28,10 +28,11 @@
 </template>
 
 <script>
-    
+   
 export default {
     name : "tableProduct" ,
-    props: ['data'] ,
+   props: ['data'],
+    emits : ['updateId','Delete'] ,
     setup()
     {
         

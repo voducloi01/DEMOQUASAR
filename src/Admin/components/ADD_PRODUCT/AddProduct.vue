@@ -47,24 +47,23 @@
       />
       <div>
         <q-btn @click="$emit('addProduct' , product)" label="Thêm Sản Phẩm" type="submit" color="primary"/>
+        
+        <q-btn class="q-ml-md" @click="$emit('UpdateProduct' , product)" label="Cập Nhập" type="submit" color="primary"/>
+
       </div>
   </div>
 </template>
 
 <script>
 import { reactive } from 'vue'
+import { useData } from '../../stores/data.js'
 
 export default {
-  emits: ['addProduct'] , 
-  setup () {
-    const product = reactive({
-      name : '', 
-      image : '', 
-      price : 0, 
-      describle : '',
-      soluong : 0  
-    })
-
+  emits: ['addProduct' ,'UpdateProduct'] , 
+  setup()
+  {
+    const store = useData(); 
+    const product =  store.product;
     return {
       product   
     }
