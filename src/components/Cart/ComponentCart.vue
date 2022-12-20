@@ -1,6 +1,6 @@
 <template>
    <div class="table-users">
-   <div class="header">CART</div>
+   <div class="header">Cart</div>
 
    <table cellspacing="0">
       <tr>
@@ -14,8 +14,8 @@
       <tr v-for="data of data" :key="data.id">
          <td><img :src="data.image" alt="" /></td>
          <td>{{data.name}}</td>
-         <td>{{data.price}}</td>
-         <td>{{data.amout}}</td>
+         <td>{{ formatNumber(data.price) }}</td>
+         <td>{{data.soluong}}</td>
          <td style="text-align: center;">
             <q-btn> Delete</q-btn>
          </td>
@@ -26,20 +26,18 @@
 </template>
 
 <script>
-import {ref,onMounted} from 'vue'
+import {ref,onMounted } from 'vue'
 import { api } from '../../boot/axios';
 import { useQuasar } from 'quasar';
 export default {
   name : "demoComponentCart",
   setup () {
     const $q = useQuasar();
-    const data = ref();
-    console.log(data.value);
-
-      function loadData () {
+     const data = ref([]);
+   function loadData () {
       $q.loading.show();
        api
-        .get('https://636caa44ab4814f2b26a713e.mockapi.io/cart')
+      .get('https://636caa44ab4814f2b26a713e.mockapi.io/cart')
         .then((response) => {
              data.value = response.data
         })
@@ -52,9 +50,13 @@ export default {
           });
         })
         .finally(() => $q.loading.hide());
-    }
-    onMounted(() => loadData())
-      return {data}
+     }
+     onMounted(() => loadData())
+
+        const formatNumber = (number) => {
+      return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
+    };
+      return {data ,formatNumber}
   }
 
 }

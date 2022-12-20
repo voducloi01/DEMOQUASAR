@@ -12,7 +12,7 @@
         <q-route-tab to="/contact" name="lienhe" icon="call" label="Liên Hệ" class="text-white"/>
         <q-route-tab to="cart">
             <q-btn dense color="purple" round icon="shopping_cart" class="q-mr-md">
-                <q-badge color="red" floating>4</q-badge>
+                <q-badge color="red" floating>{{ [...store.dataCart].length}}</q-badge>
           </q-btn>
           </q-route-tab>
       </q-tabs>
@@ -30,6 +30,7 @@
 
 <script>
 import { ref } from 'vue';
+import { useCart } from 'src/stores/cart';
 
 
 export default {
@@ -37,8 +38,9 @@ export default {
   props: ['toggleLeftDrawer'],
   setup()
   {
+    const store = useCart();
     const tab = ref("home");
-    return {tab}
+    return {tab ,store}
 
   }
 };

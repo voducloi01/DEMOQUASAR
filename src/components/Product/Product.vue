@@ -16,6 +16,7 @@
         <q-btn
           style="background: #ff0080; color: white"
           label="Thêm Giỏ Hàng"
+          @click="buyProduct(DATA_PRODUCT)"
         />
         <p class="status">
           {{ DATA_PRODUCT.status ? 'Còn Hàng' : 'Hết Hàng' }}
@@ -29,19 +30,35 @@
 import {  ref } from 'vue';
 import { api } from '../../boot/axios';
 import { useQuasar } from 'quasar';
+import { Notify } from 'quasar'
+import { useCart } from 'src/stores/cart';
 export default {
   name: 'DemoProduct',
   props: ['DATA_PRODUCT'],
   setup() {
     const $q = useQuasar();
     const data = ref();
+    const cart = ref();
+    const store = useCart();
+   const Notifi = (message) =>
+    {
+          Notify.create({
+            type: 'positive',
+            color: 'positive',
+            timeout: 2000,
+            position: 'center',
+            message: message
+          })
+    }
+  
      function loadData() {
       $q.loading.show();
        api
         .get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
-        .then((response) => {
+         .then((response) =>
+         {
             data.value = response.data
-        })
+          })
         .catch(() => {
           $q.notify({
             color: 'negative',
@@ -53,13 +70,34 @@ export default {
         .finally(() => $q.loading.hide());
     }
     loadData();
-
+    const buyProduct = (product) =>
+    {   
+        $q.loading.show();
+       api
+         .post('https://636caa44ab4814f2b26a713e.mockapi.io/cart', {...product, soluong : 1})
+         .then((response) =>
+         {
+           const message = "Thêm giỏ hàng thành công !";
+           Notifi(message);
+           cart.value = response.data
+           store.loadData();
+        })
+        .catch(() => {
+          $q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Loading failed',
+            icon: 'report_problem',
+          });
+        })
+        .finally(() => $q.loading.hide());
+    }
 
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };
 
-    return { formatNumber, data };
+    return { formatNumber, data ,buyProduct};
   },
 };
 </script>
