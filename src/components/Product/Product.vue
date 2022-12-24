@@ -1,8 +1,18 @@
 <template>
   <div class="q-pa-md">
+  <p style="font-size : 25px">Tìm Kiếm Giá Tiền</p>
+    <q-range
+      v-model="step"
+      :min="0"
+      :max="100"
+      :step="1"
+      label
+      color="deep-orange"
+    >
+  </q-range>
     <div class="row">
       <div
-        v-for="DATA_PRODUCT of data"
+        v-for="DATA_PRODUCT of handleSort(data)"
         :key="DATA_PRODUCT.id"
         class="col-12 col-md-3 item_product"
       >
@@ -27,7 +37,7 @@
 </template>
 
 <script>
-import {  ref } from 'vue';
+import {  ref, computed } from 'vue';
 import { api } from '../../boot/axios';
 import { useQuasar } from 'quasar';
 import { Notify } from 'quasar'
@@ -37,9 +47,13 @@ export default {
   props: ['DATA_PRODUCT'],
   setup() {
     const $q = useQuasar();
-    const data = ref();
-    const cart = ref();
+    const data = ref([]);
+    const cart = ref([]);
     const store = useCart();
+    const step =  ref({
+        min: 0,
+        max: 100
+      })
    const Notifi = (message) =>
     {
           Notify.create({
@@ -50,14 +64,17 @@ export default {
             message: message
           })
     }
-  
+
      function loadData() {
       $q.loading.show();
        api
         .get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
          .then((response) =>
          {
-            data.value = response.data
+            data.value = response.data;
+            handleSort();
+
+
           })
         .catch(() => {
           $q.notify({
@@ -71,9 +88,9 @@ export default {
     }
     loadData();
     const buyProduct = (product) =>
-    {   
+    {
         $q.loading.show();
-       api
+        api
          .post('https://636caa44ab4814f2b26a713e.mockapi.io/cart', {...product, soluong : 1})
          .then((response) =>
          {
@@ -91,13 +108,21 @@ export default {
           });
         })
         .finally(() => $q.loading.hide());
-    }
+      }
+
+      const handleSort =  (value) => {
+
+       return     value.filter(e => e.price >= step.value.min && e.price <= step.value.max)
+      }
+
+
+
+
 
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };
-
-    return { formatNumber, data ,buyProduct};
+    return { formatNumber, data ,buyProduct , step ,handleSort};
   },
 };
 </script>
@@ -138,4 +163,8 @@ export default {
     text-align : center
     p
      font-size : 1.1rem
+.q-range
+    width : 25%
+
+
 </style>
