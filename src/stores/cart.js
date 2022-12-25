@@ -2,8 +2,13 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { Loading, QSpinnerFacebook } from 'quasar';
+import { Notify } from 'quasar';
 export const useCart = defineStore('useCart', () => {
   const dataCart = ref([]);
+
+  const notify = (text) => {
+    Notify.create({ message: text, position: 'top', color: 'primary' });
+  };
 
   const loadData = () => {
     Loading.show({
@@ -36,6 +41,8 @@ export const useCart = defineStore('useCart', () => {
         soluong: 1,
       })
       .then((response) => {
+        const text = 'Thêm Giỏ Hàng Thành Công !';
+        notify(text);
         dataCart.value = response.data;
         loadData();
       })
@@ -45,7 +52,9 @@ export const useCart = defineStore('useCart', () => {
       .finally(() => Loading.hide());
   };
 
-  const updateData = () => {
+  const updateData = (id, product) => {
+    const findIndex = dataCart.value.findIndex((e) => e.name === product.name);
+
     Loading.show({
       spinner: QSpinnerFacebook,
       spinnerColor: 'red',
@@ -53,9 +62,16 @@ export const useCart = defineStore('useCart', () => {
       backgroundColor: '#cccccc',
     });
     axios
-      .put('https://636caa44ab4814f2b26a713e.mockapi.io/cart')
+      .put(`https://636caa44ab4814f2b26a713e.mockapi.io/cart/${id}`, {
+        ...product,
+        soluong: dataCart.value[findIndex].soluong + 1,
+      })
       .then((response) => {
+        const text = 'Tăng Số Lượng !';
+
+        notify(text);
         dataCart.value = response.data;
+        loadData();
       })
       .catch((error) => {
         console.log(error);

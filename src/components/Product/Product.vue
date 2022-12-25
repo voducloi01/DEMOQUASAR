@@ -53,9 +53,15 @@ export default {
     const storeCart = useCart();
 
     const buyProduct = (data) => {
-      console.log(data);
-      // const itemName = data.map((e) => e.name);
-      // console.log(itemName);
+      const itemName = storeCart.dataCart.map((e) => e.name);
+      const check = itemName.includes(data.name);
+      if (!check) {
+        storeCart.postData(data);
+      } else {
+        const index = storeCart.dataCart.findIndex((e) => e.name === data.name);
+        const idCart = storeCart.dataCart[index].id;
+        storeCart.updateData(idCart, data);
+      }
     };
     const handleSort = (value) => {
       return value.filter(
