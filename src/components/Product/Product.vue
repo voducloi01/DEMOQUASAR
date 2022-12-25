@@ -89,36 +89,12 @@ export default {
     loadData();
     const buyProduct = (product) =>
     {
-        $q.loading.show();
-        api
-         .post('https://636caa44ab4814f2b26a713e.mockapi.io/cart', {...product, soluong : 1})
-         .then((response) =>
-         {
-           const message = "Thêm giỏ hàng thành công !";
-           Notifi(message);
-           cart.value = response.data
-           store.loadData();
-        })
-        .catch(() => {
-          $q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Loading failed',
-            icon: 'report_problem',
-          });
-        })
-        .finally(() => $q.loading.hide());
-      }
+      store.postData(product);
+    }
 
       const handleSort =  (value) => {
-
        return     value.filter(e => e.price >= step.value.min && e.price <= step.value.max)
       }
-
-
-
-
-
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };

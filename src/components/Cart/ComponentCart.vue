@@ -11,7 +11,7 @@
         <th>Manager</th>
       </tr>
 
-      <tr v-for="data of store.dataCart" :key="data.id">
+      <tr v-for="data of handleData(store.dataCart)" :key="data.id">
         <td><img :src="data.image" alt="" /></td>
         <td>{{ data.name }}</td>
         <td>{{ formatNumber(data.price) }}</td>
@@ -26,49 +26,21 @@
 
 <script>
 import { useCart } from '../../stores/cart';
+import { ref } from 'vue';
 export default {
   name: 'demoComponentCart',
   setup() {
-    const store = useCart();
-    console.log(store);
+     const store = useCart();
 
-    //   const carts = ref([]);
-    //    const data = ref([]);
-    //  function loadData () {
-    //     $q.loading.show();
-    //      api
-    //     .get('https://636caa44ab4814f2b26a713e.mockapi.io/cart')
-    //       .then((response) => {
-    //            data.value = response.data
-    //            handleData() ;
-    //       })
-    //       .catch(() => {
-    //         $q.notify({
-    //           color: 'negative',
-    //           position: 'top',
-    //           message: 'Loading failed',
-    //           icon: 'report_problem',
-    //         });
-    //       })
-    //       .finally(() => $q.loading.hide());
-    //    }
-    //    const handleData = () => {
-    //     const itemsName = data.value.map(item => item.name);
-    //     const items = [...new Set(itemsName)]
-    //     for(const item of items) {
-
-    //       const itemsByName = data.value.filter(el => el.name == item)
-    //       const price = itemsByName.reduce((a, object) => { return a + object.price }, 0)
-    //       const amount = itemsByName.reduce((a, object) => { return a + object.soluong }, 0)
-    //       carts.value.push({...itemsByName[0], price: price, soluong: amount});
-    //     }
-    //   }
-    //    onMounted(() => loadData())
-
+     const handleData = (data) =>
+     {   
+        const uniqueObjects = [...new Map(data.map(item => [item.name, item])).values()]
+      return uniqueObjects
+      }
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };
-    return { formatNumber, store };
+    return { formatNumber, store ,handleData};
   },
 };
 </script>
