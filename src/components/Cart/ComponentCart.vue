@@ -30,17 +30,17 @@ import { ref } from 'vue';
 export default {
   name: 'demoComponentCart',
   setup() {
-     const store = useCart();
+    const store = useCart();
 
-     const handleData = (data) =>
-     {   
-        const uniqueObjects = [...new Map(data.map(item => [item.name, item])).values()]
-      return uniqueObjects
-      }
+    const handleData = (data) => {
+      return data;
+      //   const uniqueObjects = [...new Map(data.map(item => [item.name, item])).values()]
+      // return uniqueObjects
+    };
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };
-    return { formatNumber, store ,handleData};
+    return { formatNumber, store, handleData };
   },
 };
 </script>

@@ -1,43 +1,40 @@
 <template>
   <q-layout view="hHh lpR fFf" class="bg-grey-1">
-    <Header/>
-      <q-page-container>
-        <q-page class="q-pa-md">
-          <DialogVue />
-          <Product :DATA_PRODUCT="BANH_MEMU"/>
-        </q-page>
-      </q-page-container>
-      <div v-if="check">
-        <Footer />
-        </div>
-
+    <Header />
+    <q-page-container>
+      <q-page class="q-pa-md">
+        <DialogVue />
+        <Product :DATA_PRODUCT="BANH_MEMU" />
+      </q-page>
+    </q-page-container>
+    <div v-if="check">
+      <Footer />
+    </div>
   </q-layout>
 </template>
 
 <script>
-import Header from '../components/Header/Header.vue'
-import Product from '../components/Product/Product.vue'
-import {BANH_MEMU} from '../contants/contant.js'
-import DialogVue from 'src/components/Dialog/Dialog.vue'
-import Footer from '../components/Footer/Footer.vue'
-import {ref} from 'vue'
+import Header from '../components/Header/Header.vue';
+import Product from '../components/Product/Product.vue';
+import { BANH_MEMU } from 'src/contants/constant';
+import DialogVue from 'src/components/Dialog/Dialog.vue';
+import Footer from '../components/Footer/Footer.vue';
+import { ref } from 'vue';
 export default {
   name: 'MyLayout1',
   components: {
     Footer,
     Header,
     Product,
-    DialogVue
+    DialogVue,
   },
 
-  setup () {
-    const check = ref(false)
+  setup() {
+    const check = ref(false);
 
-
-
-    return {BANH_MEMU , check}
-  }
-}
+    return { BANH_MEMU, check };
+  },
+};
 </script>
 
 <style lang="sass">

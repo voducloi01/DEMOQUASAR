@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-  <p style="font-size : 25px">Tìm Kiếm Giá Tiền</p>
+    <p style="font-size: 25px">Tìm Kiếm Giá Tiền</p>
     <q-range
       v-model="step"
       :min="0"
@@ -9,10 +9,10 @@
       label
       color="deep-orange"
     >
-  </q-range>
+    </q-range>
     <div class="row">
       <div
-        v-for="DATA_PRODUCT of handleSort(data)"
+        v-for="DATA_PRODUCT of handleSort(store.data)"
         :key="DATA_PRODUCT.id"
         class="col-12 col-md-3 item_product"
       >
@@ -37,68 +37,35 @@
 </template>
 
 <script>
-import {  ref, computed } from 'vue';
-import { api } from '../../boot/axios';
-import { useQuasar } from 'quasar';
-import { Notify } from 'quasar'
+import { ref } from 'vue';
+import { useProduct } from 'src/stores/product';
 import { useCart } from 'src/stores/cart';
+
 export default {
   name: 'DemoProduct',
   props: ['DATA_PRODUCT'],
   setup() {
-    const $q = useQuasar();
-    const data = ref([]);
-    const cart = ref([]);
-    const store = useCart();
-    const step =  ref({
-        min: 0,
-        max: 100
-      })
-   const Notifi = (message) =>
-    {
-          Notify.create({
-            type: 'positive',
-            color: 'positive',
-            timeout: 2000,
-            position: 'center',
-            message: message
-          })
-    }
+    const step = ref({
+      min: 0,
+      max: 100,
+    });
+    const store = useProduct();
+    const storeCart = useCart();
 
-     function loadData() {
-      $q.loading.show();
-       api
-        .get('https://636caa44ab4814f2b26a713e.mockapi.io/product')
-         .then((response) =>
-         {
-            data.value = response.data;
-            handleSort();
-
-
-          })
-        .catch(() => {
-          $q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Loading failed',
-            icon: 'report_problem',
-          });
-        })
-        .finally(() => $q.loading.hide());
-    }
-    loadData();
-    const buyProduct = (product) =>
-    {
-      store.postData(product);
-    }
-
-      const handleSort =  (value) => {
-       return     value.filter(e => e.price >= step.value.min && e.price <= step.value.max)
-      }
+    const buyProduct = (data) => {
+      console.log(data);
+      // const itemName = data.map((e) => e.name);
+      // console.log(itemName);
+    };
+    const handleSort = (value) => {
+      return value.filter(
+        (e) => e.price >= step.value.min && e.price <= step.value.max
+      );
+    };
     const formatNumber = (number) => {
       return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };
-    return { formatNumber, data ,buyProduct , step ,handleSort};
+    return { formatNumber, step, handleSort, store, buyProduct };
   },
 };
 </script>
@@ -141,6 +108,4 @@ export default {
      font-size : 1.1rem
 .q-range
     width : 25%
-
-
 </style>
