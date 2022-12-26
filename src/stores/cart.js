@@ -43,7 +43,6 @@ export const useCart = defineStore('useCart', () => {
       .then((response) => {
         const text = 'Thêm Giỏ Hàng Thành Công !';
         notify(text);
-        dataCart.value = response.data;
         loadData();
       })
       .catch((error) => {
@@ -68,9 +67,26 @@ export const useCart = defineStore('useCart', () => {
       })
       .then((response) => {
         const text = 'Tăng Số Lượng !';
-
         notify(text);
-        dataCart.value = response.data;
+        loadData();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => Loading.hide());
+  };
+  const deleteProductCart = (id) => {
+    Loading.show({
+      spinner: QSpinnerFacebook,
+      spinnerColor: 'red',
+      spinnerSize: 140,
+      backgroundColor: '#cccccc',
+    });
+    axios
+      .delete(`https://636caa44ab4814f2b26a713e.mockapi.io/cart/${id}`)
+      .then((response) => {
+        const text = 'Xoá Thành Công !';
+        notify(text);
         loadData();
       })
       .catch((error) => {
@@ -81,5 +97,5 @@ export const useCart = defineStore('useCart', () => {
 
   onMounted(() => loadData());
 
-  return { dataCart, loadData, postData, updateData };
+  return { dataCart, loadData, postData, updateData, deleteProductCart };
 });

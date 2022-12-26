@@ -11,34 +11,40 @@
         <th>Manager</th>
       </tr>
 
-      <tr v-for="data of handleData(store.dataCart)" :key="data.id">
+      <tr v-for="data of store.dataCart" :key="data.id">
         <td><img :src="data.image" alt="" /></td>
         <td>{{ data.name }}</td>
         <td>{{ formatNumber(data.price) }}</td>
         <td>{{ data.soluong }}</td>
         <td style="text-align: center">
-          <q-btn> Delete</q-btn>
+          <q-btn @click="store.deleteProductCart(data.id)"> Delete</q-btn>
         </td>
       </tr>
     </table>
   </div>
+  <p class="total">Total : {{ handleTotal(store.dataCart) }}</p>
 </template>
 
 <script>
 import { useCart } from '../../stores/cart';
 import { formatNumber } from '../../Utils/logicPage';
+import _ from 'lodash';
 
 export default {
   name: 'cardProduct',
   setup() {
     const store = useCart();
-
-    const handleData = (data) => {
-      return data;
-      //   const uniqueObjects = [...new Map(data.map(item => [item.name, item])).values()]
-      // return uniqueObjects
+    const handleTotal = (arr) => {
+      if (!arr.length) {
+        return null;
+      }
+      const sumPrice = _.sumBy(arr, function (e) {
+        return e.price * e.soluong;
+      });
+      return sumPrice;
     };
-    return { formatNumber, store, handleData };
+
+    return { formatNumber, store, handleTotal };
   },
 };
 </script>
@@ -56,7 +62,11 @@ body {
     box-sizing: border-box;
   }
 }
-
+.total {
+  text-align: center;
+  font-size: 1.5rem;
+  color: red;
+}
 .header {
   background-color: darken($baseColor, 5%);
   color: white;

@@ -13,8 +13,6 @@
         >
         <q-tab  name="gioithieu" icon="info" label="Giới Thiệu !" />
 
-          <q-tab   v-for="cakeMenu in BANH_MEMU"
-          :key="cakeMenu.id"  :name="cakeMenu.key" :icon="cakeMenu.icon" :label="cakeMenu.name" />
         </q-tabs>
 
       </template>
