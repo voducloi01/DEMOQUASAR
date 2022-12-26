@@ -4,7 +4,7 @@
     <q-page-container>
       <q-page class="q-pa-md">
         <DialogVue />
-        <Product :DATA_PRODUCT="BANH_MEMU" />
+        <Product />
       </q-page>
     </q-page-container>
     <div v-if="check">
@@ -16,7 +16,6 @@
 <script>
 import Header from '../components/Header/Header.vue';
 import Product from '../components/Product/Product.vue';
-import { BANH_MEMU } from 'src/contants/constant';
 import DialogVue from 'src/components/Dialog/Dialog.vue';
 import Footer from '../components/Footer/Footer.vue';
 import { ref } from 'vue';
@@ -32,7 +31,7 @@ export default {
   setup() {
     const check = ref(false);
 
-    return { BANH_MEMU, check };
+    return { check };
   },
 };
 </script>

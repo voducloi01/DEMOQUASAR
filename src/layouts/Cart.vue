@@ -3,7 +3,7 @@
     <Header />
     <q-page-container>
       <q-page>
-        <ComponentCartVue />
+        <CartProductVue />
       </q-page>
     </q-page-container>
   </q-layout>
@@ -11,13 +11,13 @@
 
 <script>
 import Header from '../components/Header/Header.vue';
-import ComponentCartVue from 'src/components/Cart/ComponentCart.vue';
+import CartProductVue from 'src/components/CartProduct/CartProduct.vue';
 
 export default {
   name: 'demoCart',
   components: {
     Header,
-    ComponentCartVue,
+    CartProductVue,
   },
 };
 </script>

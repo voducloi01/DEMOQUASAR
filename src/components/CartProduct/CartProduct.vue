@@ -26,9 +26,10 @@
 
 <script>
 import { useCart } from '../../stores/cart';
-import { ref } from 'vue';
+import { formatNumber } from '../../Utils/logicPage';
+
 export default {
-  name: 'demoComponentCart',
+  name: 'cardProduct',
   setup() {
     const store = useCart();
 
@@ -36,9 +37,6 @@ export default {
       return data;
       //   const uniqueObjects = [...new Map(data.map(item => [item.name, item])).values()]
       // return uniqueObjects
-    };
-    const formatNumber = (number) => {
-      return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
     };
     return { formatNumber, store, handleData };
   },

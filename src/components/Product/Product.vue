@@ -12,24 +12,28 @@
     </q-range>
     <div class="row">
       <div
-        v-for="DATA_PRODUCT of handleSort(store.data)"
-        :key="DATA_PRODUCT.id"
+        v-for="dataProduct of handleSort(
+          storeProduct.dataProduct,
+          step.min,
+          step.max
+        )"
+        :key="dataProduct.id"
         class="col-12 col-md-3 item_product"
       >
-        <img class="item_img" :src="DATA_PRODUCT.image" />
+        <img class="item_img" :src="dataProduct.image" />
         <p style="margin-bottom: 0" class="text-red">
-          Tên Sản Phẩm :{{ DATA_PRODUCT.name }}
+          Tên Sản Phẩm :{{ dataProduct.name }}
         </p>
         <p style="margin-bottom: 0" class="text-red">
-          Gía Tiền :{{ formatNumber(DATA_PRODUCT.price) }}
+          Gía Tiền :{{ formatNumber(dataProduct.price) }}
         </p>
         <q-btn
           style="background: #ff0080; color: white"
           label="Thêm Giỏ Hàng"
-          @click="buyProduct(DATA_PRODUCT)"
+          @click="addProduct(dataProduct)"
         />
         <p class="status">
-          {{ DATA_PRODUCT.status ? 'Còn Hàng' : 'Hết Hàng' }}
+          {{ dataProduct.status ? 'Còn Hàng' : 'Hết Hàng' }}
         </p>
       </div>
     </div>
@@ -37,9 +41,10 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useProduct } from 'src/stores/product';
-import { useCart } from 'src/stores/cart';
+import { addProduct, handleSort } from '../../Utils/productUtils';
+import { formatNumber } from '../../Utils/logicPage';
 
 export default {
   name: 'DemoProduct',
@@ -49,33 +54,22 @@ export default {
       min: 0,
       max: 100,
     });
-    const store = useProduct();
-    const storeCart = useCart();
+    const storeProduct = useProduct();
 
-    const buyProduct = (data) => {
-      const itemName = storeCart.dataCart.map((e) => e.name);
-      const check = itemName.includes(data.name);
-      if (!check) {
-        storeCart.postData(data);
-      } else {
-        const index = storeCart.dataCart.findIndex((e) => e.name === data.name);
-        const idCart = storeCart.dataCart[index].id;
-        storeCart.updateData(idCart, data);
-      }
+    onMounted(() => {
+      storeProduct.getDataProduct();
+    });
+
+    return {
+      formatNumber,
+      step,
+      handleSort,
+      storeProduct,
+      addProduct,
     };
-    const handleSort = (value) => {
-      return value.filter(
-        (e) => e.price >= step.value.min && e.price <= step.value.max
-      );
-    };
-    const formatNumber = (number) => {
-      return new Intl.NumberFormat('vi-VN').format(number) + ' vnd';
-    };
-    return { formatNumber, step, handleSort, store, buyProduct };
   },
 };
 </script>
-
 <style lang="sass" scoped>
 .row > div
   padding: 10px 15px
@@ -83,8 +77,6 @@ export default {
   border: 1px solid rgba(86,61,124,.2)
 .row + .row
   margin-top: 1rem
-
-
 .item_product
       display: flex
       flex-direction: column
@@ -94,7 +86,6 @@ export default {
       width: calc(100%/4 - 20px)
       height : 100%
       position: relative
-
 .status
     position: absolute
     top: 0
