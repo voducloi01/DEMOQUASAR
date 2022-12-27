@@ -10,9 +10,11 @@
       color="deep-orange"
     >
     </q-range>
+    <input type="text" v-model="textSearch" />
     <div class="row">
       <div
         v-for="dataProduct of handleSort(
+          textSearch,
           storeProduct.dataProduct,
           step.min,
           step.max
@@ -54,6 +56,7 @@ export default {
       min: 0,
       max: 100,
     });
+    const textSearch = ref('');
     const storeProduct = useProduct();
 
     onMounted(() => {
@@ -66,6 +69,7 @@ export default {
       handleSort,
       storeProduct,
       addProduct,
+      textSearch,
     };
   },
 };

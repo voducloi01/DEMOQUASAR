@@ -14,6 +14,15 @@ export const addProduct = (data) => {
   return { storeCard };
 };
 
-export const handleSort = (value, min, max) => {
-  return value.filter((e) => e.price >= min && e.price <= max);
+export const handleSort = (textSearch, value, min, max) => {
+  if (!value.length) {
+    return null;
+  }
+  if (!textSearch) {
+    return value.filter((e) => e.price >= min && e.price <= max);
+  } else {
+    return value.filter((e) =>
+      e.name.toLowerCase().includes(textSearch.toLowerCase())
+    );
+  }
 };
