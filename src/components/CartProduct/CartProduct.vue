@@ -1,28 +1,33 @@
 <template>
-  <div class="table-users">
-    <div class="header">Cart</div>
-
-    <table cellspacing="0">
-      <tr>
-        <th>Picture</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Amount</th>
-        <th>Manager</th>
-      </tr>
-
-      <tr v-for="data of store.dataCart" :key="data.id">
-        <td><img :src="data.image" alt="" /></td>
-        <td>{{ data.name }}</td>
-        <td>{{ formatNumber(data.price) }}</td>
-        <td>{{ data.soluong }}</td>
-        <td style="text-align: center">
-          <q-btn @click="store.deleteProductCart(data.id)"> Delete</q-btn>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <p class="total">Total : {{ handleTotal(store.dataCart) }}</p>
+<div>
+    <div class="table-users">
+      <div class="header">Cart</div>
+  
+      <table cellspacing="0">
+        <tr>
+          <th>Picture</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Amount</th>
+          <th>Manager</th>
+        </tr>
+  
+        <tr v-for="data of store.dataCart" :key="data.id">
+          <td><img :src="data.image" alt="" /></td>
+          <td>{{ data.name }}</td>
+          <td>{{ formatNumber(data.price) }}</td>
+          <td>{{ data.soluong }}</td>
+          <td style="text-align: center">
+            <q-btn @click="store.deleteProductCart(data.id)"> Delete</q-btn>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="wrapper_credit">
+      <span class="total">Total : {{ handleTotal(store.dataCart) }}</span>
+      <q-btn class="bg-primary"> Thanh Toán</q-btn>
+    </div>
+</div>
 </template>
 
 <script>
@@ -50,6 +55,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper_credit{
+    display: flex;
+    justify-content: space-evenly;
+}
 $baseColor: #398b93;
 $borderRadius: 10px;
 $imageBig: 100px;

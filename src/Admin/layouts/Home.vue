@@ -109,7 +109,8 @@ export default {
   
     const addProduct = (product) =>
     {
-      if (store.product.name == "" && store.product.image == ""&& store.product.describle == "") {
+      if (store.product.name == "" || store.product.image == "" 
+      || store.product.describle == "") {
         const message = "vui lòng thêm đầy đủ thông tin !";
         Notifi(message)
       } else {

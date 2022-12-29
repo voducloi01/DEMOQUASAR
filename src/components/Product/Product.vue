@@ -1,16 +1,23 @@
 <template>
-  <div class="q-pa-md">
-    <p style="font-size: 25px">Tìm Kiếm Giá Tiền</p>
-    <q-range
-      v-model="step"
-      :min="0"
-      :max="100"
-      :step="1"
-      label
-      color="deep-orange"
-    >
-    </q-range>
-    <input type="text" v-model="textSearch" />
+  <div class="q-px-md">
+          <p style="font-size: 25px ; margin: 0;">Tìm Kiếm Giá Tiền</p>
+
+    <div class="wrapper_search">
+  
+          <q-range
+            v-model="step"
+            :min="0"
+            :max="100"
+            :step="1"
+            label
+            color="deep-orange"
+          >
+          </q-range>
+ <div style="display: flex ;">
+     <input style="border-radius: 10px;" type="text" v-model="textSearch" placeholder="Tìm Kiếm "/>
+     <img style="width: 30px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdLkh8AJMOaFDdDvSlXohY8grRlIQDDMrITA&usqp=CAU"/>
+ </div>
+  </div>
     <div class="row">
       <div
         v-for="dataProduct of handleSort(
@@ -109,4 +116,10 @@ export default {
      font-size : 1.1rem
 .q-range
     width : 25%
+.wrapper_search
+    display : flex
+    align-items: center  
+    justify-content: space-between  
+    margin-bottom: 15px 
+    
 </style>

@@ -47,9 +47,15 @@
           >
           </q-btn>
         </q-route-tab>
+           <q-route-tab to="Register">
+              <q-btn class="bg-red q-mr-xs text-amber-1"> Đăng Ký </q-btn>
+        </q-route-tab>
+           <q-route-tab to="cart">
+              <q-btn class="bg-red q-mr-xs text-amber-1"> Đăng Nhập</q-btn>
+        </q-route-tab>
       </q-tabs>
       <q-space />
-
+      
       <q-avatar>
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQap7CQd2HfIzDR7yh9eecI_A62siDNpKugJw&usqp=CAU"
