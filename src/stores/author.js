@@ -1,21 +1,21 @@
 import { defineStore } from 'pinia';
-import { ref, onMounted, reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import { Loading, QSpinnerFacebook } from 'quasar';
 import { Notify } from 'quasar';
 import axios from 'axios';
-import { data } from 'browserslist';
-
+import { useRouter } from 'vue-router';
 export const useAuthor = defineStore('useAuthor', () => {
   const author = ref([]);
   const user = reactive({
     username: '',
     password: '',
   });
-
+  const resetForm = () => {
+    return (user.username = ''), (user.password = '');
+  };
   const notify = (text) => {
     Notify.create({ message: text, position: 'top', color: 'primary' });
   };
-
   const loadData = () => {
     Loading.show({
       spinner: QSpinnerFacebook,
@@ -35,8 +35,7 @@ export const useAuthor = defineStore('useAuthor', () => {
   };
 
   const register = (dataUser, dataAuthor) => {
-    const itemName = dataAuthor.map((e) => e.username);
-    const check = itemName.includes(dataUser.username);
+    const check = dataAuthor.some((e) => e.username === dataUser.username);
     if (!check) {
       if (dataUser.username == '' || dataUser.password == '') {
         const text = 'Vui Lòng Nhập Đầy Đủ Thông Tin !';
@@ -55,6 +54,7 @@ export const useAuthor = defineStore('useAuthor', () => {
           .then((response) => {
             const text = 'Đăng Ký Thành Công !';
             notify(text);
+            resetForm();
             loadData();
           })
           .catch((error) => {
@@ -67,6 +67,20 @@ export const useAuthor = defineStore('useAuthor', () => {
       notify(text);
     }
   };
+  const router = useRouter();
+  const hadleLogin = (user, author) => {
+    const check = author.some(
+      (e) => e.username === user.username && e.password === user.password
+    );
+    if (!check) {
+      const text = 'Sai Tài Khoảng hoặc mật khẩu !';
+      notify(text);
+    } else {
+      const text = 'Đăng nhập thành công !';
+      notify(text);
+      router.replace({ path: 'sanpham' });
+    }
+  };
 
-  return { author, register, user, loadData };
+  return { author, register, user, loadData, hadleLogin };
 });

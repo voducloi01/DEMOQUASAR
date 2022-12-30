@@ -50,7 +50,7 @@
            <q-route-tab to="Register">
               <q-btn class="bg-red q-mr-xs text-amber-1"> Đăng Ký </q-btn>
         </q-route-tab>
-           <q-route-tab to="cart">
+           <q-route-tab to="login">
               <q-btn class="bg-red q-mr-xs text-amber-1"> Đăng Nhập</q-btn>
         </q-route-tab>
       </q-tabs>

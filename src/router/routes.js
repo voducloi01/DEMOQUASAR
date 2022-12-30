@@ -31,6 +31,10 @@ const routes = [
     path: '/register',
     component: () => import('../layouts/Register.vue'),
   },
+  {
+    path: '/login',
+    component: () => import('../layouts/Login.vue'),
+  },
 
   {
     path: '/:catchAll(.*)*',

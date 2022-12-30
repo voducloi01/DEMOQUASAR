@@ -3,7 +3,7 @@
       <Header/>
       <q-page-container>
         <q-page class="q-px-xl">
-            <RegisterComponentVue />
+            <LoginComponentVue />
         </q-page>
       </q-page-container>
   </q-layout>
@@ -12,12 +12,11 @@
 
 <script>
 import Header from '../components/Header/Header.vue' 
-import RegisterComponentVue from 'src/components/Register/RegisterComponent.vue';
-
+import LoginComponentVue from 'src/components/Login/LoginComponent.vue';
 
 export default {
     name: 'demoLogin',
-        components: {Header ,RegisterComponentVue} , 
+        components: {Header ,LoginComponentVue} , 
         setup() {
           
         }
