@@ -1,8 +1,8 @@
 <template>
-<div>
+  <div>
     <div class="table-users">
       <div class="header">Cart</div>
-  
+
       <table cellspacing="0">
         <tr>
           <th>Picture</th>
@@ -11,7 +11,7 @@
           <th>Amount</th>
           <th>Manager</th>
         </tr>
-  
+
         <tr v-for="data of store.dataCart" :key="data.id">
           <td><img :src="data.image" alt="" /></td>
           <td>{{ data.name }}</td>
@@ -25,20 +25,31 @@
     </div>
     <div class="wrapper_credit">
       <span class="total">Total : {{ handleTotal(store.dataCart) }}</span>
-      <q-btn class="bg-primary"> Thanh Toán</q-btn>
+      <q-btn
+        v-show="hasIt"
+        class="bg-primary"
+        @click="storeBill.hadlePay(store.dataCart, handleTotal(store.dataCart))"
+      >
+        Thanh Toán</q-btn
+      >
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import { useCart } from '../../stores/cart';
+import { useBill } from 'src/stores/bill';
 import { formatNumber } from '../../Utils/logicPage';
 import _ from 'lodash';
+import { useQuasar } from 'quasar';
 
 export default {
   name: 'cardProduct',
   setup() {
     const store = useCart();
+    const storeBill = useBill();
+    const $q = useQuasar();
+    const hasIt = $q.cookies.has('username');
     const handleTotal = (arr) => {
       if (!arr.length) {
         return null;
@@ -49,15 +60,15 @@ export default {
       return sumPrice;
     };
 
-    return { formatNumber, store, handleTotal };
+    return { formatNumber, store, handleTotal, hasIt, storeBill };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.wrapper_credit{
-    display: flex;
-    justify-content: space-evenly;
+.wrapper_credit {
+  display: flex;
+  justify-content: space-evenly;
 }
 $baseColor: #398b93;
 $borderRadius: 10px;

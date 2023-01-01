@@ -4,6 +4,7 @@ import { Loading, QSpinnerFacebook } from 'quasar';
 import { Notify } from 'quasar';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { Cookies } from 'quasar';
 export const useAuthor = defineStore('useAuthor', () => {
   const author = ref([]);
   const user = reactive({
@@ -77,6 +78,7 @@ export const useAuthor = defineStore('useAuthor', () => {
       notify(text);
     } else {
       const text = 'Đăng nhập thành công !';
+      Cookies.set('username', user.username);
       notify(text);
       router.replace({ path: 'sanpham' });
     }

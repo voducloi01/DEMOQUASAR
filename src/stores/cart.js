@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { Loading, QSpinnerFacebook } from 'quasar';
 import { Notify } from 'quasar';
+
 export const useCart = defineStore('useCart', () => {
   const dataCart = ref([]);
 
@@ -97,5 +98,11 @@ export const useCart = defineStore('useCart', () => {
 
   onMounted(() => loadData());
 
-  return { dataCart, loadData, postData, updateData, deleteProductCart };
+  return {
+    dataCart,
+    loadData,
+    postData,
+    updateData,
+    deleteProductCart,
+  };
 });
