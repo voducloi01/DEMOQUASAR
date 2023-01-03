@@ -98,3 +98,5 @@ export const BANH_MEMU = [
     status: true,
   },
 ];
+
+export const Cart = [];

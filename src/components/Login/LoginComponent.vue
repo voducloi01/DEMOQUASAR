@@ -10,13 +10,19 @@
             :rules="[ val => val && val.length > 0 || 'Please type something']"
           />
           <q-input
-           v-model="store.user.password"
+            :type="iconEye ? 'text' : 'password'"
+            v-model="store.user.password"
             filled
             label="Password"
             hint="Password"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something']"
-          />
+          >
+          <q-icon @click="handleIconEye" :name="iconEye ? 'remove_red_eye' : 'visibility_off'" size="25px" class="iconEye" />
+
+        </q-input>
+
+
           <div>
             <q-btn @click="store.hadleLogin(store.user , store.author)"  label="Đăng Nhập" type="button" color="primary"/>
           </div>
@@ -24,18 +30,24 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { onMounted , ref } from 'vue';
 import { useAuthor } from 'src/stores/author';
 
 export default {
     name: 'demoLogin',
     setup()
     {
-        const store = useAuthor();
+      const store = useAuthor();
+      const iconEye = ref(false);
+      const handleIconEye = () =>
+      {
+       console.log( iconEye.value = !iconEye.value);
+      }
+          
         onMounted(() => {
            store.loadData();
         });
-            return {store}
+            return {store  ,handleIconEye ,iconEye}
     }
 };
 </script>
@@ -46,6 +58,14 @@ export default {
     flex-direction: column ;
     text-align: center ;
     width: 30% ;
+}
+.iconEye{
+    position: absolute;
+    font-size: 25px;
+    margin-top: -50px;
+    height: 100px;
+    right: 0;
+    top: 50%;
 }
 
 </style>

@@ -39,7 +39,7 @@
         <q-btn
           style="background: #ff0080; color: white"
           label="Thêm Giỏ Hàng"
-          @click="addProduct(dataProduct)"
+          @click="storeCart.addCart(dataProduct)"
         />
         <p class="status">
           {{ dataProduct.status ? 'Còn Hàng' : 'Hết Hàng' }}
@@ -52,8 +52,9 @@
 <script>
 import { onMounted, ref } from 'vue';
 import { useProduct } from 'src/stores/product';
-import { addProduct, handleSort } from '../../Utils/productUtils';
+import {  handleSort } from '../../Utils/productUtils';
 import { formatNumber } from '../../Utils/logicPage';
+import { useCart } from '../../stores/cart'
 
 export default {
   name: 'DemoProduct',
@@ -63,6 +64,7 @@ export default {
       min: 0,
       max: 100,
     });
+    const storeCart = useCart();
     const textSearch = ref('');
     const storeProduct = useProduct();
 
@@ -75,8 +77,8 @@ export default {
       step,
       handleSort,
       storeProduct,
-      addProduct,
       textSearch,
+      storeCart
     };
   },
 };

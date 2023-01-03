@@ -6,7 +6,7 @@ import { date } from 'quasar';
 import { Cookies } from 'quasar';
 export const useBill = defineStore('useBill', () => {
   const notify = (text) => {
-    Notify.create({ message: text, position: 'top', color: 'primary' });
+    Notify.create({ message: text, position: 'center', color: 'primary' });
   };
   const hadlePay = (dataPay, total) => {
     const newDate = Date.now();
@@ -26,8 +26,9 @@ export const useBill = defineStore('useBill', () => {
         total: total,
         khachhang: user,
       })
-      .then((response) => {
+      .then(() => {
         const text = 'Thanh Toán Thành Công !';
+        dataPay.length = 0;
         notify(text);
       })
       .catch((error) => {

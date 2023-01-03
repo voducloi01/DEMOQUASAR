@@ -1,108 +1,54 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
-import { Loading, QSpinnerFacebook } from 'quasar';
+import { ref } from 'vue';
 import { Notify } from 'quasar';
+import { LocalStorage } from 'quasar';
 
 export const useCart = defineStore('useCart', () => {
   const dataCart = ref([]);
+  dataCart.value = LocalStorage.getItem('Cart');
 
   const notify = (text) => {
-    Notify.create({ message: text, position: 'top', color: 'primary' });
-  };
-
-  const loadData = () => {
-    Loading.show({
-      spinner: QSpinnerFacebook,
-      spinnerColor: 'red',
-      spinnerSize: 140,
-      backgroundColor: '#cccccc',
+    Notify.create({
+      message: text,
+      position: 'top',
+      color: 'primary',
     });
-    axios
-      .get('https://636caa44ab4814f2b26a713e.mockapi.io/cart')
-      .then((response) => {
-        dataCart.value = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => Loading.hide());
   };
-
-  const postData = (product) => {
-    Loading.show({
-      spinner: QSpinnerFacebook,
-      spinnerColor: 'red',
-      spinnerSize: 140,
-      backgroundColor: '#cccccc',
+  const addCart = (product) => {
+    const check = dataCart.value.some((e) => e.name == product.name);
+    if (!check) {
+      const text = 'Đã thêm sản phẩm vào giỏ hàng !';
+      notify(text);
+      dataCart.value.push({ ...product, soluong: 1 });
+      LocalStorage.set('Cart', dataCart.value);
+    } else {
+      const index = dataCart.value.findIndex((e) => e.name == product.name);
+      dataCart.value[index].soluong += 1;
+      const text = 'Tăng số lượng của bạn lên 1 !';
+      notify(text);
+      LocalStorage.set('Cart', dataCart.value);
+    }
+  };
+  const onChange = (data, value) => {
+    const newArray = dataCart.value.map((e) => {
+      if (e.name === data.name) {
+        return { ...e, soluong: +value };
+      }
+      return e;
     });
-    axios
-      .post('https://636caa44ab4814f2b26a713e.mockapi.io/cart', {
-        ...product,
-        soluong: 1,
-      })
-      .then((response) => {
-        const text = 'Thêm Giỏ Hàng Thành Công !';
-        notify(text);
-        loadData();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => Loading.hide());
+    LocalStorage.set('Cart', newArray);
+    dataCart.value = LocalStorage.getItem('Cart');
   };
 
-  const updateData = (id, product) => {
-    const findIndex = dataCart.value.findIndex((e) => e.name === product.name);
-
-    Loading.show({
-      spinner: QSpinnerFacebook,
-      spinnerColor: 'red',
-      spinnerSize: 140,
-      backgroundColor: '#cccccc',
-    });
-    axios
-      .put(`https://636caa44ab4814f2b26a713e.mockapi.io/cart/${id}`, {
-        ...product,
-        soluong: dataCart.value[findIndex].soluong + 1,
-      })
-      .then((response) => {
-        const text = 'Tăng Số Lượng !';
-        notify(text);
-        loadData();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => Loading.hide());
-  };
   const deleteProductCart = (id) => {
-    Loading.show({
-      spinner: QSpinnerFacebook,
-      spinnerColor: 'red',
-      spinnerSize: 140,
-      backgroundColor: '#cccccc',
-    });
-    axios
-      .delete(`https://636caa44ab4814f2b26a713e.mockapi.io/cart/${id}`)
-      .then((response) => {
-        const text = 'Xoá Thành Công !';
-        notify(text);
-        loadData();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => Loading.hide());
+    const index = dataCart.value.findIndex((e) => e.id === id);
+    dataCart.value.splice(index, 1);
+    LocalStorage.set('Cart', dataCart.value);
   };
-
-  onMounted(() => loadData());
-
   return {
     dataCart,
-    loadData,
-    postData,
-    updateData,
+    addCart,
+    onChange,
     deleteProductCart,
   };
 });

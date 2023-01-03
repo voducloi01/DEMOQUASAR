@@ -1,8 +1,8 @@
 <template>
   <div>
+
     <div class="table-users">
       <div class="header">Cart</div>
-
       <table cellspacing="0">
         <tr>
           <th>Picture</th>
@@ -16,7 +16,7 @@
           <td><img :src="data.image" alt="" /></td>
           <td>{{ data.name }}</td>
           <td>{{ formatNumber(data.price) }}</td>
-          <td>{{ data.soluong }}</td>
+          <td><input type="number" @input="store.onChange(data , $event.target.value)" :value="data.soluong"  style="width: 55px;"  min="1" max="30"/></td>
           <td style="text-align: center">
             <q-btn @click="store.deleteProductCart(data.id)"> Delete</q-btn>
           </td>
@@ -24,9 +24,10 @@
       </table>
     </div>
     <div class="wrapper_credit">
-      <span class="total">Total : {{ handleTotal(store.dataCart) }}</span>
+
+      <span class="total">Total : {{ handleTotal(store.dataCart) }} VND</span>
       <q-btn
-        v-show="hasIt"
+        v-show="verifyCookies"
         class="bg-primary"
         @click="storeBill.hadlePay(store.dataCart, handleTotal(store.dataCart))"
       >
@@ -45,22 +46,29 @@ import { useQuasar } from 'quasar';
 
 export default {
   name: 'cardProduct',
-  setup() {
+  setup()
+  { 
+    const $q = useQuasar()
     const store = useCart();
     const storeBill = useBill();
-    const $q = useQuasar();
-    const hasIt = $q.cookies.has('username');
-    const handleTotal = (arr) => {
-      if (!arr.length) {
-        return null;
+  
+    const verifyCookies = $q.cookies.has('username');
+    const handleTotal = (arr) =>
+    { 
+      const checkArray = Array.isArray(arr)
+      if (!checkArray) {
+         $q.localStorage.set('Cart', [])
       }
-      const sumPrice = _.sumBy(arr, function (e) {
+      const sumPrice = _.sumBy(arr, function (e)
+      {
         return e.price * e.soluong;
       });
       return sumPrice;
     };
+ 
+ 
 
-    return { formatNumber, store, handleTotal, hasIt, storeBill };
+    return { formatNumber, store, handleTotal, verifyCookies, storeBill   };
   },
 };
 </script>
