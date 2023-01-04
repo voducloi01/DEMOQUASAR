@@ -4,6 +4,7 @@ import { Loading, QSpinnerFacebook } from 'quasar';
 import { Notify } from 'quasar';
 import { date } from 'quasar';
 import { Cookies } from 'quasar';
+import { LocalStorage } from 'quasar';
 export const useBill = defineStore('useBill', () => {
   const notify = (text) => {
     Notify.create({ message: text, position: 'center', color: 'primary' });
@@ -29,6 +30,7 @@ export const useBill = defineStore('useBill', () => {
       .then(() => {
         const text = 'Thanh Toán Thành Công !';
         dataPay.length = 0;
+        LocalStorage.set('Cart', []);
         notify(text);
       })
       .catch((error) => {

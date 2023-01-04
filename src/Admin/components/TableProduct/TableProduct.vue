@@ -12,15 +12,15 @@
          <th>Manager</th>
       </tr>
 
-      <tr v-for="data of data" :key="data.id">
+      <tr v-for="data of store.data" :key="data.id">
          <td><img :src="data.image" alt="" /></td>
          <td>{{data.name}}</td>
          <td>{{data.price}}</td>
          <td>{{data.describle}}</td>
          <td>{{data.soluong}}</td>
          <td style="display: flex">
-            <q-btn @click="$emit('updateId' , data)"> Update</q-btn>
-            <q-btn @click="$emit('Delete' , data)"> Delete</q-btn>
+            <q-btn @click="store.updateId(data)"> Update</q-btn>
+            <q-btn @click="store.Delete(data)"> Delete</q-btn>
          </td>
       </tr>
    </table>
@@ -28,14 +28,13 @@
 </template>
 
 <script>
-
+import { useData } from 'src/Admin/stores/data';
 export default {
     name : "tableProduct" ,
-   props: ['data'],
-    emits : ['updateId','Delete'] ,
     setup()
     {
-
+       const store = useData()
+        return {store} 
     }
     }
 </script>

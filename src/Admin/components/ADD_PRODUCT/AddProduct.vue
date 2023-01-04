@@ -46,26 +46,26 @@
         ]"
       />
       <div>
-        <q-btn @click="$emit('addProduct' , product)" label="Thêm Sản Phẩm" type="submit" color="primary"/>
+        <q-btn @click="store.addProduct(product)" label="Thêm Sản Phẩm" type="submit" color="primary"/>
         
-        <q-btn class="q-ml-md" @click="$emit('UpdateProduct' , product)" label="Cập Nhập" type="submit" color="primary"/>
+        <q-btn class="q-ml-md" @click="store.UpdateProduct(product)" label="Cập Nhập" type="submit" color="primary"/>
 
       </div>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { store } from 'quasar/wrappers';
 import { useData } from '../../stores/data.js'
 
 export default {
-  emits: ['addProduct' ,'UpdateProduct'] , 
   setup()
   {
     const store = useData(); 
     const product =  store.product;
     return {
-      product   
+      product,
+      store
     }
   }
 }
