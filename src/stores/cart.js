@@ -9,23 +9,22 @@ export const useCart = defineStore('useCart', () => {
 
   const notify = (text) => {
     Notify.create({
+      type: 'positive',
       message: text,
       position: 'top',
-      color: 'primary',
+      color: 'positive',
     });
   };
   const addCart = (product) => {
     const check = dataCart.value.some((e) => e.name == product.name);
     if (!check) {
-      const text = 'Đã thêm sản phẩm vào giỏ hàng !';
-      notify(text);
+      notify('Đã thêm sản phẩm vào giỏ hàng !');
       dataCart.value.push({ ...product, soluong: 1 });
       LocalStorage.set('Cart', dataCart.value);
     } else {
       const index = dataCart.value.findIndex((e) => e.name == product.name);
       dataCart.value[index].soluong += 1;
-      const text = 'Tăng số lượng của bạn lên 1 !';
-      notify(text);
+      notify('Tăng số lượng của bạn lên 1 !');
       LocalStorage.set('Cart', dataCart.value);
     }
   };
@@ -41,6 +40,7 @@ export const useCart = defineStore('useCart', () => {
   };
 
   const deleteProductCart = (id) => {
+    notify('Xóa sản phẩm thành công !');
     const index = dataCart.value.findIndex((e) => e.id === id);
     dataCart.value.splice(index, 1);
     LocalStorage.set('Cart', dataCart.value);

@@ -53,8 +53,7 @@ export const useAuthor = defineStore('useAuthor', () => {
             ...dataUser,
           })
           .then((response) => {
-            const text = 'Đăng Ký Thành Công !';
-            notify(text);
+            notify('Đăng Ký Thành Công !');
             resetForm();
             loadData();
           })
