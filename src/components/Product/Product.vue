@@ -41,9 +41,9 @@
           label="Thêm Giỏ Hàng"
           @click="storeCart.addCart(dataProduct)"
         />
-        <p class="status">
+        <!-- <p class="status">
           {{ dataProduct.status ? 'Còn Hàng' : 'Hết Hàng' }}
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@ export default {
   setup() {
     const step = ref({
       min: 0,
-      max: 100,
+      max: 100000,
     });
     const storeCart = useCart();
     const textSearch = ref('');

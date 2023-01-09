@@ -25,7 +25,7 @@
     </div>
     <div class="wrapper_credit">
 
-      <span class="total">Total : {{ handleTotal(store.dataCart) }} VND</span>
+      <span class="total">Total : {{ handleTotal(store.dataCart) }}</span>
       <q-btn
         v-show="verifyCookies"
         class="bg-primary"
@@ -63,7 +63,7 @@ export default {
       {
         return e.price * e.soluong;
       });
-      return sumPrice;
+      return formatNumber(sumPrice);
     };
  
  

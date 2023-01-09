@@ -48,6 +48,13 @@
             <q-badge color="red" floating>{{ store.dataCart.length }}</q-badge>
           </q-btn>
         </q-route-tab>
+           <q-route-tab
+          to="/detailBill"
+          name="bill"
+          icon="receipt_long"
+          label="Đơn Hàng"
+          class="text-white"
+        />
         <div style="display: flex" v-if="!hasIt">
           <q-route-tab to="Register">
             <q-btn class="bg-red q-mr-xs text-amber-1"> Đăng Ký </q-btn>
