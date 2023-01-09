@@ -59,16 +59,16 @@ export default {
 
     data() {
         return {
-            
+
         };
     },
 
     mounted() {
-        
+
     },
 
     methods: {
-        
+
     },
 };
 </script>
@@ -200,6 +200,10 @@ textarea {
 }
 .contact-form input:focus, textarea:focus {
 	border-color: #CC5B00
+}
+
+input::placeholder{
+  color: red;
 }
 
 
